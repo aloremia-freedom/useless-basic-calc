@@ -34,6 +34,6 @@ describe('Calculator', () => {
 		expect(calc.multiply(3, -2)).to.equal(-6);
 	});
 	it('multiply() should return 6 when passed with -3 and -2', () => {
-		expect(calc.multiply(-3, -2)).to.equal(-6);
+		expect(calc.multiply(-3, -2)).to.equal(6);
 	});
 } );

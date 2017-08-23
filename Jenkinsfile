@@ -13,7 +13,7 @@ pipeline {
     }
     stage('Testing') {
       steps {
-        sh './node_modules/mocha/.bin/mocha tests --reporter mocha-junit-reporter'
+        sh './node_modules/mocha/bin/mocha tests --reporter mocha-junit-reporter'
       }
     }
     stage('Assessment') {

@@ -2,45 +2,16 @@ pipeline {
   agent none
   stages {
     stage('Building') {
-      steps {
-        parallel(
-          "Building": {
-            sh 'npm install'
-            
-          },
-          "Print": {
-            echo 'Building'
-            
-          }
-        )
-      }
+      sh 'npm install'
     }
     stage('Running') {
       steps {
-        parallel(
-          "Running": {
-            sh 'node index.js &'
-            
-          },
-          "Print": {
-            echo 'Running'
-            
-          }
-        )
+        sh 'node index.js &'
       }
     }
     stage('Testing') {
       steps {
-        parallel(
-          "Testing": {
-            sh './node_modules/mocha/.bin/mocha tests --reporter mocha-junit-reporter'
-            
-          },
-          "Print": {
-            echo 'Testing'
-            
-          }
-        )
+        sh './node_modules/mocha/.bin/mocha tests --reporter mocha-junit-reporter'
       }
     }
     stage('Assessment') {

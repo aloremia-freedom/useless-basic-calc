@@ -38,7 +38,7 @@ describe('CalculatorAPI', (done) => {
 			.end((err, res) => {
 				expect(res.body.a).to.equal(2); 
 				expect(res.body.b).to.equal(3); 
-				expect(res.body.result).to.equal(-6); 
+				expect(res.body.result).to.equal(6); 
 				done();
 			});
 	});

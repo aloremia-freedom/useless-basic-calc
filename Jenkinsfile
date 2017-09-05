@@ -1,6 +1,9 @@
 pipeline {
   agent any
   stages {
+    stage('Print Environment') {
+      sh 'printenv'
+    }
     stage('Building') {
       steps {
         sh 'npm install'

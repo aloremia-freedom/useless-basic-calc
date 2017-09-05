@@ -28,8 +28,6 @@ pipeline {
     }
   }
   post {
-    always {
-    }
     failure {
       when {
         env.BRANCH_NAME == 'master'

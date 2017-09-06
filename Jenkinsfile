@@ -18,7 +18,9 @@ pipeline {
       }
     }
     steps('Deployment') {
-      echo 'STUB'
+      steps {
+        echo 'STUB'
+      }
     }
   }
   post {

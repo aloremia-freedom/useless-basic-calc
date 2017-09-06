@@ -17,6 +17,11 @@ pipeline {
         sh './node_modules/mocha/bin/mocha tests --reporter mocha-junit-reporter'
       }
     }
+    stage('Deployment') {
+      steps {
+        echo 'todo'
+      }
+    }
   }
   post {
     always {
@@ -28,7 +33,7 @@ pipeline {
           body: """
             CI BUILD FAILED FAILED: ${env.JOB_NAME} [${env.BUILD_NUMBER}]
 
-            Check console output at env.BUILD_URL
+            Check console output at ${env.BUILD_URL}
             """,
           recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'CulpritsRecipientProvider']],
 

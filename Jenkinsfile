@@ -1,11 +1,6 @@
 pipeline {
   agent any
   stages {
-    stage('Print Environment') {
-      steps {
-        sh 'printenv'
-      }
-    }
     stage('Building') {
       steps {
         sh 'npm install'
@@ -18,23 +13,30 @@ pipeline {
     }
     stage('Testing') {
       steps {
+        sh './node_modules/mocha/bin/mocha tests'
         sh './node_modules/mocha/bin/mocha tests --reporter mocha-junit-reporter'
       }
     }
-    stage('Assessment') {
-      steps {
-        junit(testResults: 'test-results.xml', healthScaleFactor: 1)
-      }
+    steps('Deployment') {
+      echo 'STUB'
     }
   }
   post {
+    always {
+      junit(testResults: 'test-results.xml', healthScaleFactor: 1)
+    }
     failure {
       emailext (
-          subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-          body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-            <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+          subject: "CI BUILD FAILED FAILED: ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
+          body: """
+            CI BUILD FAILED FAILED: ${env.JOB_NAME} [${env.BUILD_NUMBER}]
+
+            Check console output at env.BUILD_URL
+            """,
           recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'CulpritsRecipientProvider']],
-          to: "aemielvin.loremia@gmail.com"
+
+          // [optional] place SME's email in here
+          to: "aemielvin.loremia@freedom.tm"
         )
     }
   }

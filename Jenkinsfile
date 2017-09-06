@@ -54,23 +54,32 @@ pipeline {
     failure {
       // steps in this section will only be run post-build if the build fails
 
-      // sends emails to:
-      //    Developers who was involved in the last build
-      //    Developers who are suspected to have caused the failing build
-      //    The SME
+      // Checks if the current branch is a critical branch
+      script {
+        def criticalBranches = [
+          'master'
+        ]
 
-      emailext (
-          subject: "CI BUILD FAILED FAILED: ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
-          body: """
-            CI BUILD FAILED FAILED: ${env.JOB_NAME} [${env.BUILD_NUMBER}]
+        // if branch is critical, send emails to:
+        // - Developers who was involved in the last build
+        // - Developers who are suspected to have caused the failing build
+        // - The SME
+        if (criticalBranches.contains(env.BRANCH_NAME)) {
+          emailext (
+              subject: "CI BUILD FAILED FAILED: ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
+              body: """
+                CI BUILD FAILED FAILED: ${env.JOB_NAME} [${env.BUILD_NUMBER}]
 
-            Check console output at ${env.BUILD_URL}
-            """,
-          recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'CulpritsRecipientProvider']],
+                Check console output at ${env.BUILD_URL}
+                """,
+              recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'CulpritsRecipientProvider']],
 
-          // [optional] place SME's email in here
-          to: "aemielvin.loremia@freedom.tm"
-        )
+              // [optional] place SME's email in here
+              to: "sme@freedom.tm"
+            )
+        }
+      }
+
     }
   }
 }

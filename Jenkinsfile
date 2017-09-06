@@ -35,7 +35,7 @@ pipeline {
     }
     stage('Deployment') {
       steps {
-        echo 'STUB: steps for deployment'
+        sh 'pak ganern'
         // NOTE: automatic deployment is optional
       }
     }

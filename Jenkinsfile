@@ -17,11 +17,6 @@ pipeline {
         sh './node_modules/mocha/bin/mocha tests --reporter mocha-junit-reporter'
       }
     }
-    steps('Deployment') {
-      steps {
-        echo 'STUB'
-      }
-    }
   }
   post {
     always {

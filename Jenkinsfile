@@ -35,6 +35,7 @@ pipeline {
     }
     stage('Deployment') {
       steps {
+        echo 'STUB: steps for deployment should go here'
         // NOTE: automatic deployment is optional
       }
     }

@@ -35,7 +35,6 @@ pipeline {
     }
     stage('Deployment') {
       steps {
-        sh 'pak ganern'
         // NOTE: automatic deployment is optional
       }
     }

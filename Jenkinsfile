@@ -47,6 +47,8 @@ pipeline {
   post {
     always {
       echo 'steps in this section will always be run post-build'
+        
+      echo env
 
       echo 'publish JUnit report, if any'
       // eg. junit 'test-results.xml'

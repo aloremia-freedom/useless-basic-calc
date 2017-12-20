@@ -47,6 +47,8 @@ pipeline {
   post {
     always {
       echo 'steps in this section will always be run post-build'
+        
+      echo env
 
       echo 'publish JUnit report, if any'
       // eg. junit 'test-results.xml'
@@ -59,8 +61,6 @@ pipeline {
         def criticalBranches = [
           'master'
         ]
-        
-        echo env
 
         // if branch is critical, send emails to:
         // - Developers who was involved in the last build

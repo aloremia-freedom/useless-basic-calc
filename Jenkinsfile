@@ -59,6 +59,8 @@ pipeline {
         def criticalBranches = [
           'master'
         ]
+        
+        echo env
 
         // if branch is critical, send emails to:
         // - Developers who was involved in the last build
